@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx pnpm install -r
+RESULT=$(git diff --exit-code pnpm-lock.yaml)
+
+if [ "$RESULT" -eq 0 ]; then
+    git add pnpm-lock.yaml
+    git commit -m "update pnpm-lock.yaml"
+    git push
+fi
